@@ -1,7 +1,9 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import model.Loja;
+import model.Cliente;
+import model.Produto;
+import model.Funcionario;
 
 public class LojaDao {
 
@@ -36,7 +38,19 @@ public class LojaDao {
     }
 
 
+    public boolean atualizarLoja(Loja lojaAtualizada){
+        Loja loja = getLoja();
+        List<Cliente> clientesAtuais = loja.getClientes();
+        clientesAtuais = lojaAtualizada.getClientes();
 
+        List<Produto> produtosAtuais = loja.getProdutos();
+        produtosAtuais = lojaAtualizada.getProdutos();
+
+        List<Funcionario> funcionariosAtuais = loja.getFuncionarios();
+        funcionariosAtuais = lojaAtualizada.getFuncionarios();
+
+        return true;
+    }
 
 
 

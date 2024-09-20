@@ -1,24 +1,24 @@
 import javax.swing.*;
 import java.awt.event.*;
+import model.Loja;
 
-public class TelaPrincipal extends JDialog {
+public class TelaPrincipalCliente extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JButton produtosButton;
-    private JButton clientesButton;
-    private JButton funcionariosButton;
+    private JButton listaButton;
+    private JButton adicionarClienteButton;
+    private JButton voltarButton;
 
     private LojaDao lojaDao;
+    private Loja loja;
 
-    public TelaPrincipal() {
+    public TelaPrincipalCliente(Loja loja) {
         lojaDao = new LojaDao();
+        this.loja =loja;
         setContentPane(contentPane);
         //setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
-
-        // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -34,15 +34,25 @@ public class TelaPrincipal extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
 
-        clientesButton.addActionListener(new ActionListener() {
+        adicionarClienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(lojaDao.getLoja());
-                    telaPrincipalCliente.pack();
-                    telaPrincipalCliente.setVisible(true);
-                    setVisible(false);
+                TelaAdicionaCliente telaAdicionaCliente = new TelaAdicionaCliente(lojaDao.getLoja());
+                telaAdicionaCliente.pack();
+                telaAdicionaCliente.setVisible(true);
+                setVisible(false);
             }
         });
+
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaPrincipal telaPrincipal = new TelaPrincipal();
+                telaPrincipal.pack();
+                telaPrincipal.setVisible(true);
+            }
+        });
+
     }
 
     private void onOK() {
@@ -54,12 +64,4 @@ public class TelaPrincipal extends JDialog {
         // add your code here if necessary
         dispose();
     }
-
-    public static void main(String[] args) {
-        TelaPrincipal dialog = new TelaPrincipal();
-        dialog.pack();
-        dialog.setVisible(true);
-        //System.exit(0);
-    }
-
 }
