@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Loja implements Serializable {
+
+    private  String nome;
     private List<Cliente> clientes;
     private List<Funcionario> funcionarios;
     private List<Produto> produtos;
 
     public Loja() {
+        this.nome="The Jovens";
         this.clientes = new ArrayList<>();
         this.funcionarios = new ArrayList<>();
         this.produtos = new ArrayList<>();
@@ -55,5 +58,15 @@ public class Loja implements Serializable {
 
     public List<Produto> getProdutos() {
         return produtos;
+    }
+
+    @Override
+    public String toString() {
+        return "Loja{" +
+                "nome='" + nome + '\'' +
+                ", clientes=" + clientes +
+                ", funcionarios=" + funcionarios +
+                ", produtos=" + produtos +
+                '}';
     }
 }
