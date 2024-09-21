@@ -1,21 +1,35 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+
 import model.Loja;
 import model.Cliente;
-import model.Funcionario;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 
 public class TelaListaClientes extends JDialog {
     private JPanel contentPane;
-    private JButton sairButton;
+    private JButton voltarButton;
     private JTable table1;
+    private LojaDao lojaDao;
 
     public TelaListaClientes(Loja loja) {
+        lojaDao = new LojaDao();
         setContentPane(contentPane);
         //setModal(true);
-        getRootPane().setDefaultButton(sairButton);
+        getRootPane().setDefaultButton(voltarButton);
+
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(lojaDao.getLoja());
+                telaPrincipalCliente.pack();
+                telaPrincipalCliente.setVisible(true);
+                setVisible(false);
+            }
+        });
 
     }
 

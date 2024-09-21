@@ -1,63 +1,53 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.util.List;
+import model.Funcionario;
+
 
 public class TelaListaFuncionario extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
     private JTable table1;
+    private JButton voltarButton;
+    private LojaDao  lojaDao;
 
     public TelaListaFuncionario() {
+        lojaDao = new LojaDao();
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        //setModal(true);
+        getRootPane().setDefaultButton(voltarButton);
 
-        buttonOK.addActionListener(new ActionListener() {
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                TelaPrincipalFuncionario telaPrincipalFuncionario = new TelaPrincipalFuncionario();
+                telaPrincipalFuncionario.pack();
+                telaPrincipalFuncionario.setVisible(true);
+                setVisible(false);
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        TelaListaFuncionario dialog = new TelaListaFuncionario();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
+        table1 = new JTable();
+        preencherTabela();
+    }
+
+    private void preencherTabela() {
+        LojaDao lojaDao1 = new LojaDao();
+        String titulos[] = { "Nome","CPF", "Cargo"};
+        List<Funcionario> funcionarios = lojaDao1.getLoja().getFuncionarios();
+        List<Funcionario> FuncionariosList = funcionarios.stream().toList();
+        String dados[][] = new String[funcionarios.size()][3];
+
+        for(int i=0; i<funcionarios.size(); i++) {
+            dados[i][0] = FuncionariosList.get(i).getNome();
+            dados[i][1] = FuncionariosList.get(i).getCpf();
+            dados[i][2] = FuncionariosList.get(i).getCargo();
+        }
+
+        DefaultTableModel model = new DefaultTableModel(dados, titulos);
+        table1.setModel(model);
     }
 }

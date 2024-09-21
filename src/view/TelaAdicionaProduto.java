@@ -1,58 +1,62 @@
 import javax.swing.*;
 import java.awt.event.*;
+import model.Loja;
+import model.Produto;
 
 public class TelaAdicionaProduto extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton salvarButton;
+    private JButton cancelarButton;
+    private JTextField inputCodigo;
+    private JTextField inputNome;
+    private JTextField inputMarca;
+    private JTextField inputPreco;
+    private JTextField inputQuantidade;
 
-    public TelaAdicionaProduto() {
+    private LojaDao lojaDao = new LojaDao();
+    public TelaAdicionaProduto(Loja loja) {
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        //setModal(true);
+        pack();
+        getRootPane().setDefaultButton(salvarButton);
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
+
+        salvarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = inputNome.getText();
+                String codigo = inputCodigo.getText();
+                String marca = inputMarca.getText();
+                double preco = Double.parseDouble(inputPreco.getText()) ;
+                int quantidade = Integer.parseInt(inputQuantidade.getText()) ;
+                Produto produto = new Produto(nome,codigo,preco,quantidade,marca);
+
+                loja.adicionarProduto(produto);
+                if (lojaDao.salvarLoja(loja)) {
+                    JOptionPane.showMessageDialog(contentPane, "Produto adicionado com sucesso!");
+                    TelaPrincipalProdutos telaPrincipalProdutos = new TelaPrincipalProdutos();
+                    telaPrincipalProdutos.pack();
+                    telaPrincipalProdutos.setVisible(true);
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Falha ao adicionar Produto",
+                            "Mensagem de erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                TelaPrincipalProdutos telaPrincipalProdutos = new TelaPrincipalProdutos();
+                telaPrincipalProdutos.pack();
+                telaPrincipalProdutos.setVisible(true);
+                setVisible(false);
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        TelaAdicionaProduto dialog = new TelaAdicionaProduto();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        });
     }
 }

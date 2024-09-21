@@ -33,6 +33,27 @@ public class TelaPrincipal extends JDialog {
                 dispose();
             }
         });
+
+        funcionariosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaPrincipalFuncionario telaPrincipalFuncionario = new TelaPrincipalFuncionario();
+                telaPrincipalFuncionario.pack();
+                telaPrincipalFuncionario.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+        produtosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaPrincipalProdutos telaPrincipalProdutos = new TelaPrincipalProdutos();
+                telaPrincipalProdutos.pack();
+                telaPrincipalProdutos.setVisible(true);
+                setVisible(false);
+            }
+        });
+
     }
 
 

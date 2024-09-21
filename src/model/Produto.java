@@ -6,13 +6,13 @@ import java.util.Objects;
 public class Produto implements Serializable {
     private String nome;
     private  String marca;
-    private String codigoBarras;
+    private String codigo;
     private double preco;
     private int quantidade;
 
-    public Produto(String nome, String codigoBarras, double preco, int quantidade,String marca) {
+    public Produto(String nome, String codigo, double preco, int quantidade,String marca) {
         this.nome = nome;
-        this.codigoBarras = codigoBarras;
+        this.codigo = codigo;
         this.preco = preco;
         this.quantidade = quantidade;
         this.marca=marca;
@@ -27,12 +27,12 @@ public class Produto implements Serializable {
         this.nome = nome;
     }
 
-    public String getCodigoBarras() {
-        return codigoBarras;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public double getPreco() {
@@ -64,7 +64,7 @@ public class Produto implements Serializable {
         return "Produto{" +
                 "nome='" + nome + '\'' +
                 ", marca='" + marca + '\'' +
-                ", codigoBarras='" + codigoBarras + '\'' +
+                ", codigo='" + codigo + '\'' +
                 ", preco=" + preco +
                 ", quantidade=" + quantidade +
                 '}';
@@ -75,11 +75,11 @@ public class Produto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
-        return Objects.equals(codigoBarras, produto.codigoBarras);
+        return Objects.equals(codigo, produto.codigo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigoBarras);
+        return Objects.hash(codigo);
     }
 }

@@ -1,58 +1,57 @@
 import javax.swing.*;
 import java.awt.event.*;
+import model.Funcionario;
+import model.Loja;
 
 public class TelaAdicionaFuncionario extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton salvarButton;
+    private JButton cancelarButton;
+    private JTextField inputNome;
+    private JTextField inputCPF;
+    private JTextField inputCargo;
+    private LojaDao lojaDao = new LojaDao();
 
-    public TelaAdicionaFuncionario() {
+    public TelaAdicionaFuncionario(Loja loja) {
         setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        //setModal(true);
+        pack();
+        getRootPane().setDefaultButton(salvarButton);
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
+
+        salvarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = inputNome.getText();
+                String cpf = inputCPF.getText();
+                String cargo = inputCargo.getText();
+                Funcionario funcionario = new Funcionario(nome, cpf, cargo);
+                loja.adicionarFuncionario(funcionario);
+                if (lojaDao.salvarLoja(loja)) {
+                    JOptionPane.showMessageDialog(contentPane, "Funcionario adicionado com sucesso!");
+                    TelaPrincipalFuncionario telaPrincipalFuncionario = new TelaPrincipalFuncionario();
+                    telaPrincipalFuncionario.pack();
+                    telaPrincipalFuncionario.setVisible(true);
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Falha ao adicionar Funcionario",
+                            "Mensagem de erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onCancel();
+                TelaPrincipalFuncionario telaPrincipalFuncionario = new TelaPrincipalFuncionario();
+                telaPrincipalFuncionario.pack();
+                telaPrincipalFuncionario.setVisible(true);
+                setVisible(false);
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        TelaAdicionaFuncionario dialog = new TelaAdicionaFuncionario();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        });
     }
 }
