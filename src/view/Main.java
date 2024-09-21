@@ -4,14 +4,15 @@ import model.Funcionario;
 import model.Loja;
 import model.Produto;
 
+
 public class Main{
 
     public static void main(String[] args){
 
-        Loja loja = new Loja();
-
-        loja.adicionarCliente(new Cliente("Gabriel","123.123.123-12","8399292-9595","Rua das Ostras"));
-        loja.adicionarProduto(new Produto("Camisa vermelha", "123",123,15,"Nike"));
+        LojaDao lojadao = new LojaDao();
+//
+//        loja.adicionarCliente(new Cliente("Gabriel","123.123.123-12","8399292-9595","Rua das Ostras"));
+//        loja.adicionarProduto(new Produto("Camisa vermelha", "123",123,15,"Nike"));
 
 //        for (Cliente cliente : loja.getClientes()){
 //            if(cliente.getCpf().equals("123.123.123-12")){
@@ -22,6 +23,6 @@ public class Main{
 //        }
 
 
-        System.out.println(loja);
+        System.out.println(lojadao.getLoja());
     }
 }

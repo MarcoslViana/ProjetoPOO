@@ -11,32 +11,17 @@ public class TelaAdicionaCliente extends JDialog {
     private JTextField inputTelefone;
     private JTextField inputCPF;
     private JTextField inputEndereco;
-    private Loja loja;
-    private LojaDao lojaDao;
-
+    private LojaDao lojaDao = new LojaDao();
 
     public TelaAdicionaCliente(Loja loja) {
-        this.loja =loja;
-        lojaDao = new LojaDao();
+
         setContentPane(contentPane);
-        setModal(true);
+        //setModal(true);
         pack();
         getRootPane().setDefaultButton(salvarButton);
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-//        addWindowListener(new WindowAdapter() {
-//            public void windowClosing(WindowEvent e) {
-//                onCancel();
-//            }
-//        });
-
-        // call onCancel() on ESCAPE
-//        contentPane.registerKeyboardAction(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                onCancel();
-//            }
-//        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         salvarButton.addActionListener(new ActionListener() {
             @Override
@@ -48,9 +33,12 @@ public class TelaAdicionaCliente extends JDialog {
 
                 Cliente cliente = new Cliente(nome,cpf,telefone,endereco);
                 loja.adicionarCliente(cliente);
-                if(lojaDao.atualizarLoja(loja)){
+                if(lojaDao.salvarLoja(loja)){
                     JOptionPane.showMessageDialog(contentPane,"Cliente adicionado com sucesso!");
-                    dispose();
+                    TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(loja);
+                    telaPrincipalCliente.pack();
+                    telaPrincipalCliente.setVisible(true);
+                    setVisible(false);
                 }else {
                     JOptionPane.showMessageDialog(contentPane,
                             "Falha ao adicionar cliente",
@@ -60,14 +48,13 @@ public class TelaAdicionaCliente extends JDialog {
             }
         });
 
-
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(lojaDao.getLoja());
-                setVisible(false);
+                TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(loja);
                 telaPrincipalCliente.pack();
                 telaPrincipalCliente.setVisible(true);
+                setVisible(false);
             }
         });
     }

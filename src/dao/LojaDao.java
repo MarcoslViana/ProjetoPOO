@@ -37,20 +37,21 @@ public class LojaDao {
         return new Loja();
     }
 
-
-    public boolean atualizarLoja(Loja lojaAtualizada){
-        Loja loja = getLoja();
-        List<Cliente> clientesAtuais = loja.getClientes();
-        clientesAtuais = lojaAtualizada.getClientes();
-
-        List<Produto> produtosAtuais = loja.getProdutos();
-        produtosAtuais = lojaAtualizada.getProdutos();
-
-        List<Funcionario> funcionariosAtuais = loja.getFuncionarios();
-        funcionariosAtuais = lojaAtualizada.getFuncionarios();
-
-        return true;
+    public boolean salvarLoja(Loja loja){
+        try{
+            FileOutputStream outputStream = new FileOutputStream(arquivo);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(loja);
+            return true;
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado");
+        } catch (IOException e) {
+            System.out.println("Falha ao escrever no arquivo");
+        }
+        return false;
     }
+
+
 
 
 
