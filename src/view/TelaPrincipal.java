@@ -42,6 +42,7 @@ public class TelaPrincipal extends JDialog {
                 telaPrincipalFuncionario.setVisible(true);
                 setVisible(false);
             }
+
         });
 
         produtosButton.addActionListener(new ActionListener() {

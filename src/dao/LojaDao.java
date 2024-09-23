@@ -50,9 +50,4 @@ public class LojaDao {
         }
         return false;
     }
-
-
-
-
-
 }
