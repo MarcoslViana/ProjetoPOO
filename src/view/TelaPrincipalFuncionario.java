@@ -6,6 +6,8 @@ public class TelaPrincipalFuncionario extends JDialog {
     private JButton adicionarFuncionarioButton;
     private JButton listaButton;
     private JButton voltarButton;
+    private JButton removerFuncionarioButton;
+    private JButton editarFuncionarioButton;
     private LojaDao lojaDao;
 
     public TelaPrincipalFuncionario() {
@@ -42,6 +44,26 @@ public class TelaPrincipalFuncionario extends JDialog {
                 TelaListaFuncionario telaListaFuncionario = new TelaListaFuncionario();
                 telaListaFuncionario.pack();
                 telaListaFuncionario.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+        editarFuncionarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaEditarFuncionario telaEditarFuncionario = new TelaEditarFuncionario();
+                telaEditarFuncionario.pack();
+                telaEditarFuncionario.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+        removerFuncionarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaRemoverFuncionario telaRemoverFuncionario = new TelaRemoverFuncionario();
+                telaRemoverFuncionario.pack();
+                telaRemoverFuncionario.setVisible(true);
                 setVisible(false);
             }
         });

@@ -2,6 +2,7 @@ import model.Cliente;
 import model.Loja;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class TelaAdicionaCliente extends JDialog {
     private JPanel contentPane;
@@ -32,8 +33,18 @@ public class TelaAdicionaCliente extends JDialog {
                 String telefone = inputTelefone.getText();
 
                 Cliente cliente = new Cliente(nome,cpf,telefone,endereco);
-                loja.adicionarCliente(cliente);
-                if(lojaDao.salvarLoja(loja)){
+                List<Cliente> clientes = lojaDao.getLoja().getClientes();
+
+                boolean verifica= false;
+                for(Cliente cliente1:clientes){
+                    if(cliente1.getCpf().equals(cpf)){
+                        verifica=true;
+                    }
+                }
+
+                if (!verifica) {
+                    loja.adicionarCliente(cliente);
+                    lojaDao.salvarLoja(loja);
                     JOptionPane.showMessageDialog(contentPane,"Cliente adicionado com sucesso!");
                     TelaPrincipalCliente telaPrincipalCliente = new TelaPrincipalCliente(loja);
                     telaPrincipalCliente.pack();
@@ -41,7 +52,7 @@ public class TelaAdicionaCliente extends JDialog {
                     setVisible(false);
                 }else {
                     JOptionPane.showMessageDialog(contentPane,
-                            "Falha ao adicionar cliente",
+                            "Falha ao adicionar cliente com cpf já existente!",
                             "Mensagem de erro",
                             JOptionPane.ERROR_MESSAGE);
                 }

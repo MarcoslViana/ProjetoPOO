@@ -6,6 +6,8 @@ public class TelaPrincipalProdutos extends JDialog {
     private JButton voltarButton;
     private JButton listaButton;
     private JButton adicionarProdutoButton;
+    private JButton removerProdutoButton;
+    private JButton editarProdutoButton;
     private JButton buttonCancel;
 
     private LojaDao lojaDao;
@@ -44,6 +46,26 @@ public class TelaPrincipalProdutos extends JDialog {
                 TelaListaProduto telaListaProduto = new TelaListaProduto();
                 telaListaProduto.pack();
                 telaListaProduto.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+        editarProdutoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaEditarProduto telaEditarProduto = new TelaEditarProduto();
+                telaEditarProduto.pack();
+                telaEditarProduto.setVisible(true);
+                setVisible(false);
+            }
+        });
+
+        removerProdutoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TelaRemoverProduto telaRemoverProduto = new TelaRemoverProduto();
+                telaRemoverProduto.pack();
+                telaRemoverProduto.setVisible(true);
                 setVisible(false);
             }
         });

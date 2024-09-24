@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
+
 import model.Loja;
 import model.Produto;
 
@@ -32,9 +34,18 @@ public class TelaAdicionaProduto extends JDialog {
                 double preco = Double.parseDouble(inputPreco.getText()) ;
                 int quantidade = Integer.parseInt(inputQuantidade.getText()) ;
                 Produto produto = new Produto(nome,codigo,preco,quantidade,marca);
+                List<Produto> produtos = lojaDao.getLoja().getProdutos();
 
-                loja.adicionarProduto(produto);
-                if (lojaDao.salvarLoja(loja)) {
+                boolean verifica= false;
+                for(Produto produto1:produtos){
+                    if(produto1.getCodigo().equals(codigo)){
+                        verifica=true;
+                    }
+                }
+
+                if (!verifica) {
+                    loja.adicionarProduto(produto);
+                    lojaDao.salvarLoja(loja);
                     JOptionPane.showMessageDialog(contentPane, "Produto adicionado com sucesso!");
                     TelaPrincipalProdutos telaPrincipalProdutos = new TelaPrincipalProdutos();
                     telaPrincipalProdutos.pack();
@@ -42,7 +53,7 @@ public class TelaAdicionaProduto extends JDialog {
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(contentPane,
-                            "Falha ao adicionar Produto",
+                            "Falha ao adicionar produto com código igual!",
                             "Mensagem de erro",
                             JOptionPane.ERROR_MESSAGE);
                 }

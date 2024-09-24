@@ -3,7 +3,6 @@ import java.awt.event.*;
 
 public class TelaPrincipal extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
     private JButton produtosButton;
     private JButton clientesButton;
     private JButton funcionariosButton;
@@ -14,7 +13,7 @@ public class TelaPrincipal extends JDialog {
 
         setContentPane(contentPane);
         //setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(produtosButton);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         clientesButton.addActionListener(new ActionListener() {

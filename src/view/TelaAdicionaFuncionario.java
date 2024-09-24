@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
+
 import model.Funcionario;
 import model.Loja;
 
@@ -28,8 +30,18 @@ public class TelaAdicionaFuncionario extends JDialog {
                 String cpf = inputCPF.getText();
                 String cargo = inputCargo.getText();
                 Funcionario funcionario = new Funcionario(nome, cpf, cargo);
-                loja.adicionarFuncionario(funcionario);
-                if (lojaDao.salvarLoja(loja)) {
+                List<Funcionario> funcionarios = lojaDao.getLoja().getFuncionarios();
+
+                boolean verifica= false;
+                for(Funcionario funcionario1:funcionarios){
+                    if(funcionario1.getCpf().equals(cpf)){
+                        verifica=true;
+                    }
+                }
+
+                if (!verifica) {
+                    loja.adicionarFuncionario(funcionario);
+                    lojaDao.salvarLoja(loja);
                     JOptionPane.showMessageDialog(contentPane, "Funcionario adicionado com sucesso!");
                     TelaPrincipalFuncionario telaPrincipalFuncionario = new TelaPrincipalFuncionario();
                     telaPrincipalFuncionario.pack();
@@ -37,7 +49,7 @@ public class TelaAdicionaFuncionario extends JDialog {
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(contentPane,
-                            "Falha ao adicionar Funcionario",
+                            "Falha ao adicionar Funcionario com cpf já existente!",
                             "Mensagem de erro",
                             JOptionPane.ERROR_MESSAGE);
                 }

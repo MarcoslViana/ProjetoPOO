@@ -60,6 +60,18 @@ public class Loja implements Serializable {
         return produtos;
     }
 
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
     @Override
     public String toString() {
         return "Loja{" +
