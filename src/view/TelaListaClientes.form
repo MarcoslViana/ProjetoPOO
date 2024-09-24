@@ -40,7 +40,7 @@
         </constraints>
         <properties>
           <background color="-7335926"/>
-          <font name="Amasis MT Std Black" size="14" style="0"/>
+          <font name="Amasis MT Std Black" size="20" style="0"/>
           <foreground color="-1"/>
           <text value="Voltar"/>
         </properties>

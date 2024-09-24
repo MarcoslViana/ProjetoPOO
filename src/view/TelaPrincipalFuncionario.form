@@ -95,9 +95,14 @@
       </component>
       <component id="7488a" class="javax.swing.JButton" binding="removerFuncionarioButton">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="30" height="40"/>
+          </grid>
         </constraints>
         <properties>
+          <background color="-11118243"/>
+          <font name="Amasis MT Std Black" size="20" style="0"/>
+          <foreground color="-1"/>
           <text value="Remover Funcionário"/>
         </properties>
       </component>
@@ -109,9 +114,14 @@
       </component>
       <component id="4e481" class="javax.swing.JButton" binding="editarFuncionarioButton">
         <constraints>
-          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="30" height="40"/>
+          </grid>
         </constraints>
         <properties>
+          <background color="-11118243"/>
+          <font name="Amasis MT Std Black" size="20" style="0"/>
+          <foreground color="-1"/>
           <text value="Editar Funcionário"/>
         </properties>
       </component>
